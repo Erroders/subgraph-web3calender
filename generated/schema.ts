@@ -70,7 +70,7 @@ export class Attendee extends Entity {
   }
 }
 
-export class Event extends Entity {
+export class Comment extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -78,18 +78,68 @@ export class Event extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save Event entity without an ID");
+    assert(id != null, "Cannot save Comment entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type Event must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type Comment must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("Event", id.toString(), this);
+      store.set("Comment", id.toString(), this);
     }
   }
 
-  static load(id: string): Event | null {
-    return changetype<Event | null>(store.get("Event", id));
+  static load(id: string): Comment | null {
+    return changetype<Comment | null>(store.get("Comment", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get comment(): string {
+    let value = this.get("comment");
+    return value!.toString();
+  }
+
+  set comment(value: string) {
+    this.set("comment", Value.fromString(value));
+  }
+
+  get postedOn(): BigInt {
+    let value = this.get("postedOn");
+    return value!.toBigInt();
+  }
+
+  set postedOn(value: BigInt) {
+    this.set("postedOn", Value.fromBigInt(value));
+  }
+}
+
+export class Web3Event extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Web3Event entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Web3Event must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Web3Event", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Web3Event | null {
+    return changetype<Web3Event | null>(store.get("Web3Event", id));
   }
 
   get id(): string {
