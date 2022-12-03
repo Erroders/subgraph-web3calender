@@ -19,13 +19,19 @@ type Attendee @entity {
     rsvpResponse: RSVPResponse!
 }
 
-type Event @entity {
+type Comment @entity {
+    id: ID!
+    comment: String!
+    postedOn: BigInt!
+}
+
+type Web3Event @entity {
     id: ID!
     startTime: BigInt!
     endTime: BigInt!
     title: String
     description: String
     attendees: [Attendee!]
-    comments: [String!]
+    comments: [Comment!]
     creator: Bytes!
 }
