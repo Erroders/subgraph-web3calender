@@ -1,8 +1,8 @@
 {
     "mumbai": {
         "EventFactory": {
-            "address": "0xc1aF96F6BB5191E421b42cb527a59Df02D09aD70",
-            "startBlock": 29402620
+            "address": "0x931720b01762C6e12D695116913BF000AD97EAb4",
+            "startBlock": 29474390
         }
     }
 }

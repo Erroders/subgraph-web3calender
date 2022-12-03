@@ -1,6 +1,6 @@
 specVersion: 0.0.5
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: EventFactory
@@ -20,12 +20,11 @@ dataSources:
         - EpnsPushNotification
       abis:
         - name: EventFactory
-          file: ../contracts-web3calender/artifacts/contracts/EventFactory.sol/EventFactory.json
+          file: contracts-web3calender\artifacts\contracts\EventFactory.sol\EventFactory.json
       eventHandlers:
-        - event: EventCreated(indexed address,indexed
-            address,uint256,uint256,string,address[])
+        - event: EventCreated(indexed address,indexed address,uint256,uint256,string,address[])
           handler: handleWalletCreated
-      file: ./src/EventFactory.ts
+      file: EventFactory\EventFactory.wasm
 templates:
   - kind: ethereum/contract
     name: Event
@@ -36,7 +35,7 @@ templates:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
-      file: ./src/Event.ts
+      file: templates\Event\Event.wasm
       entities:
         - Web3Event
         - Attendee
@@ -45,7 +44,7 @@ templates:
         - EpnsPushNotification
       abis:
         - name: Event
-          file: ../contracts-web3calender/artifacts/contracts/Event.sol/Event.json
+          file: contracts-web3calender\artifacts\contracts\Event.sol\Event.json
       eventHandlers:
         - event: StartTimeModified(indexed address,uint256)
           handler: handleStartTimeModified

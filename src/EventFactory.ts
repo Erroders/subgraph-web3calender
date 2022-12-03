@@ -2,6 +2,7 @@ import { EventCreated } from "../generated/EventFactory/EventFactory";
 import { Event } from "../generated/templates";
 import { Attendee, Web3Event } from "../generated/schema";
 import { ipfs, json } from "@graphprotocol/graph-ts";
+import { sendEPNSNotification } from "./EPNSNotification";
 
 export function handleEventCreated(event: EventCreated): void {
     let eve = Web3Event.load(event.params.eventAddress.toHex());
@@ -24,7 +25,10 @@ export function handleEventCreated(event: EventCreated): void {
         }
         // create attendeesList
         let attendeesList: string[] = [];
-        event.params.attendees.forEach((attendee) => {
+        let recipientList: string[] = [];
+
+        for (let i = 0; i < event.params.attendees.length; i++) {
+            let attendee = event.params.attendees[i];
             let obj = new Attendee(
                 event.params.eventAddress.toHex() + attendee.toHex()
             );
@@ -35,7 +39,9 @@ export function handleEventCreated(event: EventCreated): void {
             attendeesList.push(
                 event.params.eventAddress.toHex() + attendee.toHex()
             );
-        });
+            recipientList.push(attendee.toHex());
+        }
+
         // add creator to list
         let obj = new Attendee(
             event.params.eventAddress.toHex() + event.params.creator.toHex()
@@ -47,7 +53,24 @@ export function handleEventCreated(event: EventCreated): void {
         attendeesList.push(
             event.params.eventAddress.toHex() + event.params.creator.toHex()
         );
+        recipientList.push(event.params.creator.toHex());
         eve.attendees = attendeesList;
+
+        // push notification to the attendees
+        let recipient = recipientList,
+            type = "4",
+            title = "New Event Created",
+            body = `New Event created by ${event.params.creator.toHex()}`,
+            subject = "Event created",
+            message = `New Event created by ${event.params.creator.toHex()}`,
+            image = "null",
+            secret = "null",
+            cta = "https://epns.io/";
+
+        let notification = `{\"type\": \"${type}\", \"title\": \"${title}\", \"body\": \"${body}\", \"subject\": \"${subject}\", \"message\": \"${message}\", \"image\": \"${image}\", \"secret\": \"${secret}\", \"cta\": \"${cta}\"}`;
+        sendEPNSNotification(recipient.toString(), notification);
+
+        eve.recipientList = recipientList.toString();
         eve.save();
     }
 }

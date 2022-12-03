@@ -6,7 +6,7 @@
         "codegen": "graph codegen",
         "build": "graph build",
         "auth": "graph auth --product hosted-service",
-        "deploy": "graph deploy --product hosted-service erroders/Web3Calender"
+        "deploy": "graph deploy --product hosted-service erroders/web3calender"
     },
     "dependencies": {
         "@graphprotocol/graph-cli": "0.37.0",
