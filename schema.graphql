@@ -27,4 +27,5 @@ type Event @entity {
     description: String
     attendees: [Attendee!]
     comments: [String!]
+    creator: Bytes!
 }

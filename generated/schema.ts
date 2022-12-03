@@ -186,4 +186,13 @@ export class Event extends Entity {
       this.set("comments", Value.fromStringArray(<Array<string>>value));
     }
   }
+
+  get creator(): Bytes {
+    let value = this.get("creator");
+    return value!.toBytes();
+  }
+
+  set creator(value: Bytes) {
+    this.set("creator", Value.fromBytes(value));
+  }
 }

@@ -27,20 +27,24 @@ export class EventCreated__Params {
     return this._event.parameters[0].value.toAddress();
   }
 
-  get stime(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
+  get creator(): Address {
+    return this._event.parameters[1].value.toAddress();
   }
 
-  get etime(): BigInt {
+  get stime(): BigInt {
     return this._event.parameters[2].value.toBigInt();
   }
 
+  get etime(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+
   get metadata(): string {
-    return this._event.parameters[3].value.toString();
+    return this._event.parameters[4].value.toString();
   }
 
   get attendees(): Array<Address> {
-    return this._event.parameters[4].value.toAddressArray();
+    return this._event.parameters[5].value.toAddressArray();
   }
 }
 
