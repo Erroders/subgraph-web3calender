@@ -15,6 +15,7 @@ dataSources:
           language: wasm/assemblyscript
           entities:
               - Event
+              - Attendee
           abis:
               - name: EventFactory
                 file: ../contracts-web3calender/artifacts/contracts/EventFactory.sol/EventFactory.json
