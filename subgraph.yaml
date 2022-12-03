@@ -14,7 +14,7 @@ dataSources:
           apiVersion: 0.0.7
           language: wasm/assemblyscript
           entities:
-              - Event
+              - Web3Event
               - Attendee
           abis:
               - name: EventFactory
@@ -35,8 +35,9 @@ templates:
           language: wasm/assemblyscript
           file: ./src/Event.ts
           entities:
-              - Event
+              - Web3Event
               - Attendee
+              - Comment
           abis:
               - name: Event
                 file: ../contracts-web3calender/artifacts/contracts/Event.sol/Event.json
