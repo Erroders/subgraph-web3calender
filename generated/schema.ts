@@ -11,99 +11,179 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
-export class WalletCreated extends Entity {
-  constructor(id: Bytes) {
+export class Attendee extends Entity {
+  constructor(id: string) {
     super();
-    this.set("id", Value.fromBytes(id));
+    this.set("id", Value.fromString(id));
   }
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save WalletCreated entity without an ID");
+    assert(id != null, "Cannot save Attendee entity without an ID");
     if (id) {
       assert(
-        id.kind == ValueKind.BYTES,
-        `Entities of type WalletCreated must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        id.kind == ValueKind.STRING,
+        `Entities of type Attendee must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("WalletCreated", id.toBytes().toHexString(), this);
+      store.set("Attendee", id.toString(), this);
     }
   }
 
-  static load(id: Bytes): WalletCreated | null {
-    return changetype<WalletCreated | null>(
-      store.get("WalletCreated", id.toHexString())
-    );
+  static load(id: string): Attendee | null {
+    return changetype<Attendee | null>(store.get("Attendee", id));
   }
 
-  get id(): Bytes {
+  get id(): string {
     let value = this.get("id");
-    return value!.toBytes();
-  }
-
-  set id(value: Bytes) {
-    this.set("id", Value.fromBytes(value));
-  }
-
-  get ownerAddress(): Bytes {
-    let value = this.get("ownerAddress");
-    return value!.toBytes();
-  }
-
-  set ownerAddress(value: Bytes) {
-    this.set("ownerAddress", Value.fromBytes(value));
-  }
-
-  get walletAddress(): Bytes {
-    let value = this.get("walletAddress");
-    return value!.toBytes();
-  }
-
-  set walletAddress(value: Bytes) {
-    this.set("walletAddress", Value.fromBytes(value));
-  }
-
-  get walletCid(): string {
-    let value = this.get("walletCid");
     return value!.toString();
   }
 
-  set walletCid(value: string) {
-    this.set("walletCid", Value.fromString(value));
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
   }
 
-  get ownerCid(): string {
-    let value = this.get("ownerCid");
-    return value!.toString();
-  }
-
-  set ownerCid(value: string) {
-    this.set("ownerCid", Value.fromString(value));
-  }
-
-  get blockNumber(): BigInt {
-    let value = this.get("blockNumber");
-    return value!.toBigInt();
-  }
-
-  set blockNumber(value: BigInt) {
-    this.set("blockNumber", Value.fromBigInt(value));
-  }
-
-  get blockTimestamp(): BigInt {
-    let value = this.get("blockTimestamp");
-    return value!.toBigInt();
-  }
-
-  set blockTimestamp(value: BigInt) {
-    this.set("blockTimestamp", Value.fromBigInt(value));
-  }
-
-  get transactionHash(): Bytes {
-    let value = this.get("transactionHash");
+  get address(): Bytes {
+    let value = this.get("address");
     return value!.toBytes();
   }
 
-  set transactionHash(value: Bytes) {
-    this.set("transactionHash", Value.fromBytes(value));
+  set address(value: Bytes) {
+    this.set("address", Value.fromBytes(value));
+  }
+
+  get status(): string {
+    let value = this.get("status");
+    return value!.toString();
+  }
+
+  set status(value: string) {
+    this.set("status", Value.fromString(value));
+  }
+
+  get rsvpResponse(): string {
+    let value = this.get("rsvpResponse");
+    return value!.toString();
+  }
+
+  set rsvpResponse(value: string) {
+    this.set("rsvpResponse", Value.fromString(value));
+  }
+}
+
+export class Event extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Event entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Event must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Event", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Event | null {
+    return changetype<Event | null>(store.get("Event", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get startTime(): BigInt {
+    let value = this.get("startTime");
+    return value!.toBigInt();
+  }
+
+  set startTime(value: BigInt) {
+    this.set("startTime", Value.fromBigInt(value));
+  }
+
+  get endTime(): BigInt {
+    let value = this.get("endTime");
+    return value!.toBigInt();
+  }
+
+  set endTime(value: BigInt) {
+    this.set("endTime", Value.fromBigInt(value));
+  }
+
+  get title(): string | null {
+    let value = this.get("title");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set title(value: string | null) {
+    if (!value) {
+      this.unset("title");
+    } else {
+      this.set("title", Value.fromString(<string>value));
+    }
+  }
+
+  get description(): string | null {
+    let value = this.get("description");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set description(value: string | null) {
+    if (!value) {
+      this.unset("description");
+    } else {
+      this.set("description", Value.fromString(<string>value));
+    }
+  }
+
+  get attendees(): Array<string> | null {
+    let value = this.get("attendees");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set attendees(value: Array<string> | null) {
+    if (!value) {
+      this.unset("attendees");
+    } else {
+      this.set("attendees", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get comments(): Array<string> | null {
+    let value = this.get("comments");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set comments(value: Array<string> | null) {
+    if (!value) {
+      this.unset("comments");
+    } else {
+      this.set("comments", Value.fromStringArray(<Array<string>>value));
+    }
   }
 }

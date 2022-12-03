@@ -3,22 +3,56 @@ schema:
     file: ./schema.graphql
 dataSources:
     - kind: ethereum/contract
-      name: ___________________________________
+      name: EventFactory
       network: mumbai
       source:
-          address: "____________________________________________"
-          startBlock: ___________
-          abi: SampleContract
+          address: "0xc1aF96F6BB5191E421b42cb527a59Df02D09aD70"
+          startBlock: 45646865
+          abi: EventFactory
       mapping:
           kind: ethereum/events
           apiVersion: 0.0.7
           language: wasm/assemblyscript
           entities:
-              - _____________________
+              - Event
           abis:
-              - name: _________________
-                file: ./abis/___________________.json
+              - name: EventFactory
+                file: ../contracts-web3calender/artifacts/contracts/EventFactory.sol/EventFactory.json
           eventHandlers:
-              - event: WalletCreated(indexed address,indexed address,string,string)
+              - event: EventCreated(indexed address,uint256,uint256,string,address[])
                 handler: handleWalletCreated
-          file: ./src/___________.ts
+          file: ./src/EventFactory.ts
+templates:
+    - kind: ethereum/contract
+      name: Event
+      network: mumbai
+      source:
+          abi: Event
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.7
+          language: wasm/assemblyscript
+          file: ./src/Event.ts
+          entities:
+              - Event
+              - Attendee
+          abis:
+              - name: Event
+                file: ../contracts-web3calender/artifacts/contracts/Event.sol/Event.json
+          eventHandlers:
+              - event: StartTimeModified(indexed address,uint256)
+                handler: handleStartTimeModified
+              - event: EndTimeModified(indexed address,uint256)
+                handler: handleEndTimeModified
+              - event: MetadataModified(indexed address,string)
+                handler: handleMetadataModified
+              - event: AttendeeInvited(indexed address,indexed address)
+                handler: handleAttendeeInvited
+              - event: AttendeeUninvited(indexed address,indexed address)
+                handler: handleAttendeeUninvited
+              - event: AttendeeRsvpd(indexed address,indexed address,uint8)
+                handler: handleAttendeeRsvpd
+              - event: CommentAdded(indexed address,string)
+                handler: handleCommentAdded
+features:
+    - ipfsOnEthereumContracts

@@ -1,10 +1,30 @@
-type WalletCreated @entity(immutable: true) {
-  id: Bytes!
-  ownerAddress: Bytes! # address
-  walletAddress: Bytes! # address
-  walletCid: String! # string
-  ownerCid: String! # string
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+enum RSVPResponse {
+    YES
+    NO
+    MAYBE
+    PENDING
+}
+
+enum AttendeeStatus {
+    UNINVITED
+    INVITED
+    RSVPD
+    ATTENDED
+}
+
+type Attendee @entity {
+    id: ID!
+    address: Bytes!
+    status: AttendeeStatus!
+    rsvpResponse: RSVPResponse!
+}
+
+type Event @entity {
+    id: ID!
+    startTime: BigInt!
+    endTime: BigInt!
+    title: String
+    description: String
+    attendees: [Attendee!]
+    comments: [String!]
 }

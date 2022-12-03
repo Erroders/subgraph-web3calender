@@ -1,6 +1,6 @@
 {
     "mumbai": {
-        "SampleContract": {
+        "EventFactory": {
             "address": "0xc1aF96F6BB5191E421b42cb527a59Df02D09aD70",
             "startBlock": 29402620
         }
