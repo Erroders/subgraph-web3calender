@@ -1,0 +1,18 @@
+{
+    "name": "Web3Calender",
+    "license": "UNLICENSED",
+    "scripts": {
+        "prepare": "graph codegen && graph build --network mumbai --network-file networks.json",
+        "codegen": "graph codegen",
+        "build": "graph build",
+        "auth": "graph auth --product hosted-service",
+        "deploy": "graph deploy --product hosted-service erroders/Web3Calender"
+    },
+    "dependencies": {
+        "@graphprotocol/graph-cli": "0.37.0",
+        "@graphprotocol/graph-ts": "0.28.1"
+    },
+    "devDependencies": {
+        "matchstick-as": "0.5.0"
+    }
+}

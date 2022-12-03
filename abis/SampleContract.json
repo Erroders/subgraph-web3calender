@@ -1,0 +1,44 @@
+[
+  { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "ownerAddress",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "walletAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "walletCid",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "ownerCid",
+        "type": "string"
+      }
+    ],
+    "name": "WalletCreated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "walletCid_", "type": "string" },
+      { "internalType": "string", "name": "ownerCid_", "type": "string" }
+    ],
+    "name": "createWallet",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

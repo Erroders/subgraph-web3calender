@@ -1,0 +1,10 @@
+type WalletCreated @entity(immutable: true) {
+  id: Bytes!
+  ownerAddress: Bytes! # address
+  walletAddress: Bytes! # address
+  walletCid: String! # string
+  ownerCid: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

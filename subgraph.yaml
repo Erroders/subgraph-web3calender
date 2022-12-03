@@ -1,0 +1,24 @@
+specVersion: 0.0.5
+schema:
+    file: ./schema.graphql
+dataSources:
+    - kind: ethereum/contract
+      name: ___________________________________
+      network: mumbai
+      source:
+          address: "____________________________________________"
+          startBlock: ___________
+          abi: SampleContract
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.7
+          language: wasm/assemblyscript
+          entities:
+              - _____________________
+          abis:
+              - name: _________________
+                file: ./abis/___________________.json
+          eventHandlers:
+              - event: WalletCreated(indexed address,indexed address,string,string)
+                handler: handleWalletCreated
+          file: ./src/___________.ts
