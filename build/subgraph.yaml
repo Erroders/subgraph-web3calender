@@ -23,7 +23,7 @@ dataSources:
           file: contracts-web3calender\artifacts\contracts\EventFactory.sol\EventFactory.json
       eventHandlers:
         - event: EventCreated(indexed address,indexed address,uint256,uint256,string,address[])
-          handler: handleWalletCreated
+          handler: handleEventCreated
       file: EventFactory\EventFactory.wasm
 templates:
   - kind: ethereum/contract

@@ -24,7 +24,7 @@ dataSources:
       eventHandlers:
         - event: EventCreated(indexed address,indexed
             address,uint256,uint256,string,address[])
-          handler: handleWalletCreated
+          handler: handleEventCreated
       file: ./src/EventFactory.ts
 templates:
   - kind: ethereum/contract
